@@ -1,0 +1,483 @@
+.cardapio-page {
+  min-height: auto;
+  padding: 42px 16px;
+  background:
+    radial-gradient(circle at top, rgba(176, 112, 29, 0.08), transparent 34%),
+    linear-gradient(180deg, #ffffff 0%, #f9f6f1 100%);
+  color: #4b3520;
+}
+
+.cardapio-page__shell {
+  width: min(100%, 1240px);
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid rgba(176, 112, 29, 0.18);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow:
+    0 24px 70px rgba(63, 43, 20, 0.11),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+}
+
+.cardapio-page__content {
+  padding: 28px 30px 14px;
+}
+
+.cardapio-page__section-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 18px;
+  color: #b0701d;
+}
+
+.cardapio-page__section-title-row span {
+  font-size: 0.7rem;
+}
+
+.cardapio-page__section-title {
+  margin: 0;
+  color: #a96a18;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.cardapio-page__sizes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-bottom: 18px;
+}
+
+.cardapio-page__size-card {
+  min-height: 98px;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  border: 1px solid rgba(176, 112, 29, 0.34);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(253, 248, 241, 0.84));
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.cardapio-page__size-card:hover {
+  border-color: rgba(176, 112, 29, 0.72);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(111, 70, 18, 0.1);
+}
+
+.cardapio-page__size-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cardapio-page__size-card:has(.cardapio-page__size-input:checked) {
+  border-color: #b0701d;
+  box-shadow:
+    0 12px 28px rgba(111, 70, 18, 0.1),
+    inset 0 0 0 1px rgba(176, 112, 29, 0.35);
+}
+
+.cardapio-page__size-icon {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.cardapio-page__size-info {
+  display: grid;
+  gap: 3px;
+}
+
+.cardapio-page__size-info strong {
+  color: #8f5a19;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.02rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cardapio-page__size-info small {
+  color: #3f372f;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.cardapio-page__menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.cardapio-page__column {
+  overflow: hidden;
+  border: 1px solid rgba(176, 112, 29, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.66);
+}
+
+.cardapio-page__column-header {
+  min-height: 48px;
+  padding: 0 18px;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+.cardapio-page__column-header::after {
+  content: "";
+  height: 1px;
+  background: rgba(176, 112, 29, 0.22);
+}
+
+.cardapio-page__column-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.cardapio-page__column-header h2 {
+  margin: 0;
+  color: #9a6118;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.98rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.cardapio-page__items {
+  padding: 0 14px 8px;
+}
+
+.cardapio-page__item {
+  min-height: 64px;
+  display: grid;
+  grid-template-columns: 16px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid rgba(176, 112, 29, 0.18);
+  cursor: pointer;
+}
+
+.cardapio-page__item:last-child {
+  border-bottom: 0;
+}
+
+.cardapio-page__item-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cardapio-page__fake-radio {
+  width: 14px;
+  height: 14px;
+  border: 1px solid rgba(176, 112, 29, 0.58);
+  border-radius: 50%;
+  background: #ffffff;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.cardapio-page__item:hover .cardapio-page__fake-radio {
+  border-color: #b0701d;
+}
+
+.cardapio-page__item-input:checked + .cardapio-page__fake-radio {
+  border-color: #b0701d;
+  background: #b0701d;
+  box-shadow: inset 0 0 0 3px #ffffff;
+}
+
+.cardapio-page__item-content {
+  display: grid;
+  gap: 3px;
+  padding: 7px 0;
+}
+
+.cardapio-page__item-content strong {
+  color: #9a6118;
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.cardapio-page__item-content small {
+  color: #40372f;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.cardapio-page__price {
+  color: #b0701d;
+  font-size: 0.78rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.cardapio-page__features {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid rgba(176, 112, 29, 0.18);
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.cardapio-page__feature {
+  min-height: 64px;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-right: 1px solid rgba(176, 112, 29, 0.2);
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.cardapio-page__feature:last-child {
+  border-right: 0;
+}
+
+.cardapio-page__feature-icon-img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.cardapio-page__feature h3 {
+  margin: 0 0 2px;
+  color: #9a6118;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.cardapio-page__feature p {
+  margin: 0;
+  color: #40372f;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.cardapio-page__steps {
+  margin-top: 14px;
+  border: 1px solid rgba(176, 112, 29, 0.18);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.cardapio-page__steps-title {
+  position: relative;
+  width: max-content;
+  margin: -10px auto 4px;
+  padding: 0 20px;
+  background: #ffffff;
+  color: #a96a18;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cardapio-page__steps-list {
+  padding: 10px 20px 12px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  align-items: center;
+  gap: 14px;
+}
+
+.cardapio-page__step {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 12px;
+}
+
+.cardapio-page__step strong {
+  color: #b0701d;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.18rem;
+}
+
+.cardapio-page__step img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.cardapio-page__step p {
+  margin: 0;
+  color: #40372f;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.cardapio-page__arrow {
+  color: #b0701d;
+  font-size: 1.4rem;
+  font-weight: 900;
+}
+
+.cardapio-page__footer {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  gap: 14px;
+}
+
+.cardapio-page__payments,
+.cardapio-page__confirm-button {
+  min-height: 54px;
+  border: 1px solid rgba(176, 112, 29, 0.28);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.66);
+}
+
+.cardapio-page__payments {
+  padding: 0 28px;
+  display: grid;
+  grid-template-columns: 1.2fr repeat(3, auto);
+  align-items: center;
+  gap: 26px;
+}
+
+.cardapio-page__payments strong {
+  color: #9a6118;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cardapio-page__payments span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #3f372f;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.cardapio-page__payments img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.cardapio-page__confirm-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: #9a6118;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.1rem, 2vw, 1.55rem);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.cardapio-page__confirm-button:hover {
+  transform: translateY(-2px);
+  background: #fff7ea;
+  box-shadow: 0 12px 28px rgba(111, 70, 18, 0.12);
+}
+
+.cardapio-page__confirm-button img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+@media (max-width: 1080px) {
+  .cardapio-page__sizes,
+  .cardapio-page__menu-grid,
+  .cardapio-page__features {
+    grid-template-columns: 1fr;
+  }
+
+  .cardapio-page__steps-list {
+    grid-template-columns: 1fr;
+  }
+
+  .cardapio-page__arrow {
+    display: none;
+  }
+
+  .cardapio-page__footer {
+    grid-template-columns: 1fr;
+  }
+
+  .cardapio-page__payments {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 18px;
+  }
+}
+
+@media (max-width: 720px) {
+  .cardapio-page {
+    padding: 28px 10px;
+  }
+
+  .cardapio-page__content {
+    padding: 22px 14px 14px;
+  }
+
+  .cardapio-page__size-card {
+    padding: 16px;
+  }
+
+  .cardapio-page__item {
+    grid-template-columns: 16px 1fr;
+  }
+
+  .cardapio-page__price {
+    grid-column: 2;
+    justify-self: start;
+    padding-bottom: 8px;
+  }
+
+  .cardapio-page__feature {
+    border-right: 0;
+    border-bottom: 1px solid rgba(176, 112, 29, 0.2);
+  }
+
+  .cardapio-page__feature:last-child {
+    border-bottom: 0;
+  }
+}

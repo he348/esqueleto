@@ -1,10 +1,4 @@
-import "../styles/pages/HomePage.css";
 import "../styles/pages/PromocoesPage.css";
-
-import "../styles/pages/HomePage.css";
-import "../styles/pages/PromocoesPage.css";
-
-import pizzaIcon from "../assets/Icones/pizza_home.png";
 
 import folhaDireitaIcon from "../assets/Icones/folha_direita.png";
 import folhaEsquerdaIcon from "../assets/Icones/folha_esquerda.png";
@@ -15,10 +9,18 @@ import pizzaEspecialImg from "../assets/Pizzas/Especial.png";
 import pizzaCremosaImg from "../assets/Pizzas/Cremosa.png";
 import pizzaSupremaImg from "../assets/Pizzas/Suprema.png";
 
-import CardapioPage from "./CardapioPage";
-import AcompanharPedidoPage from "./AcompanharPedidoPage";
+type Promotion = {
+  id: string;
+  number: string;
+  title: string;
+  description: string;
+  gift: string;
+  giftIcon: string;
+  price: string;
+  image: string;
+};
 
-const promotions = [
+const promotions: Promotion[] = [
   {
     id: "mazzero-especial",
     number: "01",
@@ -26,10 +28,9 @@ const promotions = [
     description:
       "Mussarela, pepperoni artesanal, tomate cereja, azeitonas pretas e manjericão fresco.",
     gift: "Acompanha Coca Cola 1L",
-    giftIcon: "🍾",
+    giftIcon: brindeRefriIcon,
     price: "89,90",
-    image:
-      "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=900&q=90",
+    image: pizzaEspecialImg,
   },
   {
     id: "cremosa-mazzero",
@@ -38,10 +39,9 @@ const promotions = [
     description:
       "Frango desfiado, catupiry original, bacon crocante, milho e orégano.",
     gift: "Acompanha Broto de Chocolate",
-    giftIcon: "■",
+    giftIcon: brotoIcon,
     price: "89,90",
-    image:
-      "https://images.unsplash.com/photo-1594007654729-407eedc4be65?auto=format&fit=crop&w=900&q=90",
+    image: pizzaCremosaImg,
   },
   {
     id: "suprema-mazzero",
@@ -50,74 +50,13 @@ const promotions = [
     description:
       "Lombo canadense, catupiry original, cebola caramelizada e orégano.",
     gift: "Acompanha Coca Cola 1L",
-    giftIcon: "🍾",
+    giftIcon: brindeRefriIcon,
     price: "89,90",
-    image:
-      "https://images.unsplash.com/photo-1620374645498-af6bd681a0bd?auto=format&fit=crop&w=900&q=90",
+    image: pizzaSupremaImg,
   },
 ];
 
-function HomePage() {
-  return (
-    <>
-      <section id="inicio" className="home-page" aria-labelledby="home-title">
-        <div className="home-page__background" aria-hidden="true" />
-
-        <div className="home-page__overlay">
-          <div className="home-page__container">
-            <div className="home-page__content">
-              <h1 id="home-title" className="home-page__title">
-                A verdadeira
-                <br />
-                pizza italiana,
-                <br />
-                <span>direto do forno a lenha.</span>
-              </h1>
-
-              <div className="home-page__divider" aria-hidden="true">
-                <span className="home-page__divider-line home-page__divider-line--green" />
-                <span className="home-page__divider-line home-page__divider-line--white" />
-                <span className="home-page__divider-line home-page__divider-line--red" />
-              </div>
-
-              <p className="home-page__description">
-                Massa artesanal, ingredientes selecionados
-                <br />
-                e sabor incomparável em cada fatia.
-              </p>
-
-              <div className="home-page__actions">
-                <a href="#cardapio" className="home-page__button">
-                  <img
-                    src={pizzaIcon}
-                    alt=""
-                    className="home-page__button-icon"
-                    aria-hidden="true"
-                  />
-                  Pedir agora
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="cardapio" className="home-section">
-        <CardapioPage />
-      </section>
-
-      <section id="promocoes" className="home-section">
-        <PromocoesSection />
-      </section>
-
-      <section id="local" className="home-section">
-        <AcompanharPedidoPage />
-      </section>
-    </>
-  );
-}
-
-function PromocoesSection() {
+function PromocoesPage() {
   return (
     <section className="promocoes-page" aria-labelledby="promocoes-title">
       <div className="promocoes-page__watermark" aria-hidden="true">
@@ -126,15 +65,25 @@ function PromocoesSection() {
 
       <div className="promocoes-page__container">
         <header className="promocoes-page__header">
-          <div className="promocoes-page__ornament" aria-hidden="true">
+          <div className="promocoes-page__top-ornament" aria-hidden="true">
             <span />
-            <strong>♢</strong>
+            <img
+              src={folhaDireitaIcon}
+              alt=""
+              className="promocoes-page__ornament-icon"
+            />
             <span />
           </div>
 
-          <h1 id="promocoes-title" className="promocoes-page__title">
-            Promoções
-          </h1>
+          <div className="promocoes-page__title-row">
+            <strong aria-hidden="true">◆</strong>
+
+            <h1 id="promocoes-title" className="promocoes-page__title">
+              Promoções
+            </h1>
+
+            <strong aria-hidden="true">◆</strong>
+          </div>
 
           <p className="promocoes-page__subtitle">
             As melhores da casa, feitas para você.
@@ -157,8 +106,8 @@ function PromocoesSection() {
 
                 <div className="promocoes-page__content">
                   <div className="promocoes-page__number">
-                    <span aria-hidden="true">♢</span>
-                    {promotion.number}
+                    <img src={folhaDireitaIcon} alt="" aria-hidden="true" />
+                    <span>{promotion.number}</span>
                   </div>
 
                   <h2 className="promocoes-page__card-title">
@@ -170,11 +119,8 @@ function PromocoesSection() {
                   </p>
 
                   <div className="promocoes-page__gift">
-                    <span
-                      className="promocoes-page__gift-icon"
-                      aria-hidden="true"
-                    >
-                      {promotion.giftIcon}
+                    <span className="promocoes-page__gift-icon">
+                      <img src={promotion.giftIcon} alt="" aria-hidden="true" />
                     </span>
 
                     <strong>{promotion.gift}</strong>
@@ -191,10 +137,6 @@ function PromocoesSection() {
                     <strong>{reais}</strong>
                     <small>,{centavos}</small>
                   </p>
-
-                  <a href="#cardapio" className="promocoes-page__button">
-                    Pedir
-                  </a>
                 </div>
               </article>
             );
@@ -202,15 +144,17 @@ function PromocoesSection() {
         </div>
 
         <footer className="promocoes-page__footer">
+          <img src={folhaEsquerdaIcon} alt="" aria-hidden="true" />
           <span>Ingredientes selecionados</span>
           <strong>•</strong>
           <span>Massa artesanal</span>
           <strong>•</strong>
           <span>Forno a lenha</span>
+          <img src={folhaDireitaIcon} alt="" aria-hidden="true" />
         </footer>
       </div>
     </section>
   );
 }
 
-export default HomePage;
+export default PromocoesPage;
