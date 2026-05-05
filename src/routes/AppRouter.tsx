@@ -9,7 +9,8 @@ import PedidoSucessoPage from "../pages/PedidoSucessoPage";
 import AcompanharPedidoPage from "../pages/AcompanharPedidoPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import PromocoesPage from "../pages/PromocoesPage";
-
+import LoginDonoPage from "../pages/LoginDonoPage";
+import PainelCozinhaPage from "../pages/PainelCozinhaPage";
 function AppRouter() {
   return (
     <Routes>
@@ -21,6 +22,8 @@ function AppRouter() {
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/pedido/sucesso" element={<PedidoSucessoPage />} />
         <Route path="/acompanhar-pedido" element={<AcompanharPedidoPage />} />
+        <Route path="/admin/login" element={<LoginDonoPage />} />
+        <Route path="/admin/cozinha" element={<PainelCozinhaPage />} />
         <Route path="/promocoes" element={<PromocoesPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
