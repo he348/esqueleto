@@ -1,61 +1,11 @@
+import { Link } from "react-router";
 import "../styles/pages/HomePage.css";
-import "../styles/pages/PromocoesPage.css";
-
-import "../styles/pages/HomePage.css";
-import "../styles/pages/PromocoesPage.css";
 
 import pizzaIcon from "../assets/Icones/pizza_home.png";
 
-import folhaDireitaIcon from "../assets/Icones/folha_direita.png";
-import folhaEsquerdaIcon from "../assets/Icones/folha_esquerda.png";
-import brindeRefriIcon from "../assets/Icones/brinde_refri.png";
-import brotoIcon from "../assets/Icones/Broto.png";
-
-import pizzaEspecialImg from "../assets/Pizzas/Especial.png";
-import pizzaCremosaImg from "../assets/Pizzas/Cremosa.png";
-import pizzaSupremaImg from "../assets/Pizzas/Suprema.png";
-
 import CardapioPage from "./CardapioPage";
+import PromocoesPage from "./PromocoesPage";
 import AcompanharPedidoPage from "./AcompanharPedidoPage";
-
-const promotions = [
-  {
-    id: "mazzero-especial",
-    number: "01",
-    title: "Mazzero Especial",
-    description:
-      "Mussarela, pepperoni artesanal, tomate cereja, azeitonas pretas e manjericão fresco.",
-    gift: "Acompanha Coca Cola 1L",
-    giftIcon: "🍾",
-    price: "89,90",
-    image:
-      "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=900&q=90",
-  },
-  {
-    id: "cremosa-mazzero",
-    number: "02",
-    title: "Cremosa Mazzero",
-    description:
-      "Frango desfiado, catupiry original, bacon crocante, milho e orégano.",
-    gift: "Acompanha Broto de Chocolate",
-    giftIcon: "■",
-    price: "89,90",
-    image:
-      "https://images.unsplash.com/photo-1594007654729-407eedc4be65?auto=format&fit=crop&w=900&q=90",
-  },
-  {
-    id: "suprema-mazzero",
-    number: "03",
-    title: "Suprema Mazzero",
-    description:
-      "Lombo canadense, catupiry original, cebola caramelizada e orégano.",
-    gift: "Acompanha Coca Cola 1L",
-    giftIcon: "🍾",
-    price: "89,90",
-    image:
-      "https://images.unsplash.com/photo-1620374645498-af6bd681a0bd?auto=format&fit=crop&w=900&q=90",
-  },
-];
 
 function HomePage() {
   return (
@@ -107,109 +57,13 @@ function HomePage() {
       </section>
 
       <section id="promocoes" className="home-section">
-        <PromocoesSection />
+        <PromocoesPage />
       </section>
 
       <section id="local" className="home-section">
         <AcompanharPedidoPage />
       </section>
     </>
-  );
-}
-
-function PromocoesSection() {
-  return (
-    <section className="promocoes-page" aria-labelledby="promocoes-title">
-      <div className="promocoes-page__watermark" aria-hidden="true">
-        M
-      </div>
-
-      <div className="promocoes-page__container">
-        <header className="promocoes-page__header">
-          <div className="promocoes-page__ornament" aria-hidden="true">
-            <span />
-            <strong>♢</strong>
-            <span />
-          </div>
-
-          <h1 id="promocoes-title" className="promocoes-page__title">
-            Promoções
-          </h1>
-
-          <p className="promocoes-page__subtitle">
-            As melhores da casa, feitas para você.
-          </p>
-        </header>
-
-        <div className="promocoes-page__list">
-          {promotions.map((promotion) => {
-            const [reais, centavos] = promotion.price.split(",");
-
-            return (
-              <article key={promotion.id} className="promocoes-page__card">
-                <div className="promocoes-page__image-wrap">
-                  <img
-                    src={promotion.image}
-                    alt={`Pizza ${promotion.title}`}
-                    className="promocoes-page__image"
-                  />
-                </div>
-
-                <div className="promocoes-page__content">
-                  <div className="promocoes-page__number">
-                    <span aria-hidden="true">♢</span>
-                    {promotion.number}
-                  </div>
-
-                  <h2 className="promocoes-page__card-title">
-                    {promotion.title}
-                  </h2>
-
-                  <p className="promocoes-page__description">
-                    {promotion.description}
-                  </p>
-
-                  <div className="promocoes-page__gift">
-                    <span
-                      className="promocoes-page__gift-icon"
-                      aria-hidden="true"
-                    >
-                      {promotion.giftIcon}
-                    </span>
-
-                    <strong>{promotion.gift}</strong>
-                  </div>
-                </div>
-
-                <div className="promocoes-page__price-area">
-                  <span className="promocoes-page__price-label">
-                    Por apenas
-                  </span>
-
-                  <p className="promocoes-page__price">
-                    <span>R$</span>
-                    <strong>{reais}</strong>
-                    <small>,{centavos}</small>
-                  </p>
-
-                  <a href="#cardapio" className="promocoes-page__button">
-                    Pedir
-                  </a>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-
-        <footer className="promocoes-page__footer">
-          <span>Ingredientes selecionados</span>
-          <strong>•</strong>
-          <span>Massa artesanal</span>
-          <strong>•</strong>
-          <span>Forno a lenha</span>
-        </footer>
-      </div>
-    </section>
   );
 }
 

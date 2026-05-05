@@ -8,6 +8,7 @@ import CheckoutPage from "../pages/CheckoutPage";
 import PedidoSucessoPage from "../pages/PedidoSucessoPage";
 import AcompanharPedidoPage from "../pages/AcompanharPedidoPage";
 import NotFoundPage from "../pages/NotFoundPage";
+import PromocoesPage from "../pages/PromocoesPage";
 
 function AppRouter() {
   return (
@@ -20,6 +21,7 @@ function AppRouter() {
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/pedido/sucesso" element={<PedidoSucessoPage />} />
         <Route path="/acompanhar-pedido" element={<AcompanharPedidoPage />} />
+        <Route path="/promocoes" element={<PromocoesPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

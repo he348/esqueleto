@@ -379,7 +379,7 @@ function CardapioPage() {
 
             <Link to="/carrinho" className="cardapio-page__confirm-button">
               <img src={carrinhoIcon} alt="" aria-hidden="true" />
-              Confirmar pedido
+              Adicionar ao carrinho
             </Link>
           </footer>
         </main>

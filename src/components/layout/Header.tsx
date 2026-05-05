@@ -93,9 +93,7 @@ function Header() {
           </span>
 
           <span className="site-header__order-text">Meu pedido</span>
-
           <span className="site-header__order-count">0</span>
-
           <span className="site-header__order-price">R$ 0,00</span>
         </Link>
       </div>
