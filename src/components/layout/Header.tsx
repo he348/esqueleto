@@ -9,6 +9,7 @@ const darkSections = ["inicio", "local"];
 function Header() {
   const [theme, setTheme] = useState<HeaderTheme>("dark");
   const [activeSection, setActiveSection] = useState("inicio");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     function handleScroll() {
@@ -48,6 +49,10 @@ function Header() {
       : "site-header__link";
   }
 
+  function closeMenu() {
+    setMenuOpen(false);
+  }
+
   return (
     <header className={`site-header site-header--${theme}`}>
       <div className="site-header__container">
@@ -55,6 +60,7 @@ function Header() {
           href="/#inicio"
           className="site-header__brand"
           aria-label="Ir para o início"
+          onClick={closeMenu}
         >
           <span className="site-header__logo">MAZZERO</span>
 
@@ -65,20 +71,55 @@ function Header() {
           </span>
         </a>
 
-        <nav className="site-header__nav" aria-label="Navegação principal">
-          <a href="/#inicio" className={getLinkClass("inicio")}>
+        <button
+          type="button"
+          className={`site-header__menu-button ${
+            menuOpen ? "site-header__menu-button--open" : ""
+          }`}
+          aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((current) => !current)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+
+        <nav
+          className={`site-header__nav ${
+            menuOpen ? "site-header__nav--open" : ""
+          }`}
+          aria-label="Navegação principal"
+        >
+          <a
+            href="/#inicio"
+            className={getLinkClass("inicio")}
+            onClick={closeMenu}
+          >
             Início
           </a>
 
-          <a href="/#cardapio" className={getLinkClass("cardapio")}>
+          <a
+            href="/#cardapio"
+            className={getLinkClass("cardapio")}
+            onClick={closeMenu}
+          >
             Cardápio
           </a>
 
-          <a href="/#promocoes" className={getLinkClass("promocoes")}>
+          <a
+            href="/#promocoes"
+            className={getLinkClass("promocoes")}
+            onClick={closeMenu}
+          >
             Promoções
           </a>
 
-          <a href="/#local" className={getLinkClass("local")}>
+          <a
+            href="/#local"
+            className={getLinkClass("local")}
+            onClick={closeMenu}
+          >
             Local
           </a>
         </nav>
@@ -87,6 +128,7 @@ function Header() {
           to="/carrinho"
           className="site-header__order"
           aria-label="Abrir meu pedido"
+          onClick={closeMenu}
         >
           <span className="site-header__cart-icon" aria-hidden="true">
             🛒

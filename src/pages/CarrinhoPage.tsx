@@ -105,11 +105,7 @@ const borders: BorderOption[] = [
     name: "Borda doce com Leite Ninho",
     description: "Recheada com leite ninho e leite condensado.",
   },
-  {
-    id: "sem-recheio",
-    name: "Não quero borda recheada",
-    description: "Quero a borda tradicional sem recheio.",
-  },
+ 
 ];
 
 function CarrinhoPage() {

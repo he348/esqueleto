@@ -11,6 +11,7 @@ import NotFoundPage from "../pages/NotFoundPage";
 import PromocoesPage from "../pages/PromocoesPage";
 import LoginDonoPage from "../pages/LoginDonoPage";
 import PainelCozinhaPage from "../pages/PainelCozinhaPage";
+import PagamentoPage from "../pages/PagamentoPage";
 function AppRouter() {
   return (
     <Routes>
@@ -26,6 +27,7 @@ function AppRouter() {
         <Route path="/admin/cozinha" element={<PainelCozinhaPage />} />
         <Route path="/promocoes" element={<PromocoesPage />} />
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/pagamento" element={<PagamentoPage />} />
       </Route>
     </Routes>
   );

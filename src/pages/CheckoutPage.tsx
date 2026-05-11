@@ -112,7 +112,7 @@ function CheckoutPage() {
               </div>
             </article>
 
-            <Link to="/pedido-sucesso" className="checkout-page__confirm-button">
+            <Link to="/pagamento" className="checkout-page__confirm-button">
               <img src={pinIcon} alt="" aria-hidden="true" />
               Confirmar endereço
             </Link>
