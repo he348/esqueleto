@@ -44,7 +44,7 @@
   font-size: clamp(2.6rem, 3.4vw, 4rem);
   line-height: 0.9;
   letter-spacing: 0.11em;
-  color: #d9c19a;
+  color: #f6d206fc;
   transition: color 0.25s ease;
 }
 

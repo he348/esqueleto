@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router";
 import "../styles/pages/CardapioPage.css";
 
@@ -7,8 +8,6 @@ import pizzaGrandeIcon from "../assets/Icones/Pizza_grande.png";
 
 import pizzaPedacoIcon from "../assets/Icones/pizza_pedaco.png";
 import chapeuIcon from "../assets/Icones/Chapeu.png";
-import infoIcon from "../assets/Icones/informação.png";
-import fogoIcon from "../assets/Icones/fogo.png";
 import confirmacaoIcon from "../assets/Icones/Confirmacao.png";
 import bolsaIcon from "../assets/Icones/Bolsa.png";
 import tamanhoPizzaIcon from "../assets/Icones/Tamanho_Pizza.png";
@@ -27,6 +26,15 @@ type PizzaSize = {
 };
 
 type PizzaItem = {
+  id: string;
+  name: string;
+  description: string;
+  price: string;
+};
+
+type CrustType = "none" | "stuffed";
+
+type CrustOption = {
   id: string;
   name: string;
   description: string;
@@ -211,7 +219,46 @@ const doces: PizzaItem[] = [
   },
 ];
 
+const crustOptions: CrustOption[] = [
+  {
+    id: "catupiry",
+    name: "Borda Catupiry",
+    description: "Recheada com catupiry cremoso.",
+    price: "R$ 12,00",
+  },
+  {
+    id: "cheddar",
+    name: "Borda Cheddar",
+    description: "Recheada com cheddar cremoso.",
+    price: "R$ 12,00",
+  },
+  {
+    id: "chocolate",
+    name: "Borda Chocolate",
+    description: "Recheada com chocolate ao leite.",
+    price: "R$ 14,00",
+  },
+  {
+    id: "leite-ninho",
+    name: "Borda Doce com Leite Ninho",
+    description: "Recheada com leite ninho e leite condensado.",
+    price: "R$ 15,00",
+  },
+];
+
 function CardapioPage() {
+  const [crustType, setCrustType] = useState<CrustType>("none");
+  const [selectedCrust, setSelectedCrust] = useState("");
+
+  function selectNoCrust() {
+    setCrustType("none");
+    setSelectedCrust("");
+  }
+
+  function selectStuffedCrust() {
+    setCrustType("stuffed");
+  }
+
   return (
     <section className="cardapio-page" aria-labelledby="cardapio-title">
       <div className="cardapio-page__shell">
@@ -275,50 +322,82 @@ function CardapioPage() {
           </div>
 
           <section
-            className="cardapio-page__features"
-            aria-label="Diferenciais da pizzaria"
+            className="cardapio-page__crust-section"
+            aria-labelledby="crust-title"
           >
-            <article className="cardapio-page__feature">
-              <img
-                src={infoIcon}
-                alt=""
-                className="cardapio-page__feature-icon-img"
-                aria-hidden="true"
-              />
+            <header className="cardapio-page__crust-header">
+              <h2 id="crust-title">Escolha a borda da pizza</h2>
+              <p>
+                Selecione uma opção tradicional ou escolha uma borda recheada.
+              </p>
+            </header>
 
-              <div>
-                <h3>Pizzas de 2 sabores</h3>
-                <p>Selecione até 2 sabores para sua pizza meio a meio.</p>
+            <div className="cardapio-page__crust-type-grid">
+              <button
+                type="button"
+                className={`cardapio-page__crust-type ${
+                  crustType === "none"
+                    ? "cardapio-page__crust-type--active"
+                    : ""
+                }`}
+                onClick={selectNoCrust}
+              >
+                <span className="cardapio-page__crust-radio" aria-hidden="true" />
+
+                <span className="cardapio-page__crust-type-content">
+                  <strong>Sem borda</strong>
+                  <small>Borda tradicional da casa.</small>
+                </span>
+              </button>
+
+              <button
+                type="button"
+                className={`cardapio-page__crust-type ${
+                  crustType === "stuffed"
+                    ? "cardapio-page__crust-type--active"
+                    : ""
+                }`}
+                onClick={selectStuffedCrust}
+              >
+                <span className="cardapio-page__crust-radio" aria-hidden="true" />
+
+                <span className="cardapio-page__crust-type-content">
+                  <strong>Borda recheada</strong>
+                  <small>Escolha um recheio especial para sua pizza.</small>
+                </span>
+              </button>
+            </div>
+
+            {crustType === "stuffed" && (
+              <div className="cardapio-page__crust-options">
+                {crustOptions.map((crust) => (
+                  <button
+                    key={crust.id}
+                    type="button"
+                    className={`cardapio-page__crust-option ${
+                      selectedCrust === crust.id
+                        ? "cardapio-page__crust-option--active"
+                        : ""
+                    }`}
+                    onClick={() => setSelectedCrust(crust.id)}
+                  >
+                    <span
+                      className="cardapio-page__crust-radio"
+                      aria-hidden="true"
+                    />
+
+                    <span className="cardapio-page__crust-option-content">
+                      <strong>{crust.name}</strong>
+                      <small>{crust.description}</small>
+                    </span>
+
+                    <span className="cardapio-page__crust-price">
+                      {crust.price}
+                    </span>
+                  </button>
+                ))}
               </div>
-            </article>
-
-            <article className="cardapio-page__feature">
-              <img
-                src={pizzaMediaIcon}
-                alt=""
-                className="cardapio-page__feature-icon-img"
-                aria-hidden="true"
-              />
-
-              <div>
-                <h3>Ingredientes selecionados</h3>
-                <p>Usamos ingredientes frescos e de alta qualidade.</p>
-              </div>
-            </article>
-
-            <article className="cardapio-page__feature">
-              <img
-                src={fogoIcon}
-                alt=""
-                className="cardapio-page__feature-icon-img"
-                aria-hidden="true"
-              />
-
-              <div>
-                <h3>Forno a lenha</h3>
-                <p>Nossas pizzas são assadas em forno a lenha.</p>
-              </div>
-            </article>
+            )}
           </section>
 
           <section className="cardapio-page__steps" aria-label="Como funciona">
@@ -344,7 +423,7 @@ function CardapioPage() {
               <article className="cardapio-page__step">
                 <strong>3</strong>
                 <img src={confirmacaoIcon} alt="" aria-hidden="true" />
-                <p>Clique em “Adicionar ao pedido”</p>
+                <p>Escolha a borda e adicione ao pedido</p>
               </article>
 
               <span className="cardapio-page__arrow">→</span>
@@ -358,7 +437,10 @@ function CardapioPage() {
           </section>
 
           <footer className="cardapio-page__footer">
-            <div className="cardapio-page__payments" aria-label="Formas de pagamento">
+            <div
+              className="cardapio-page__payments"
+              aria-label="Formas de pagamento"
+            >
               <strong>Formas de pagamento</strong>
 
               <span>

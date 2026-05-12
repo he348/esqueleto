@@ -23,6 +23,8 @@
   padding: 28px 30px 14px;
 }
 
+/* TÍTULO DA SEÇÃO */
+
 .cardapio-page__section-title-row {
   display: flex;
   align-items: center;
@@ -46,6 +48,8 @@
   text-align: center;
   text-transform: uppercase;
 }
+
+/* TAMANHOS */
 
 .cardapio-page__sizes {
   display: grid;
@@ -117,6 +121,8 @@
   font-weight: 700;
 }
 
+/* GRID DAS PIZZAS */
+
 .cardapio-page__menu-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -186,7 +192,8 @@
   pointer-events: none;
 }
 
-.cardapio-page__fake-radio {
+.cardapio-page__fake-radio,
+.cardapio-page__crust-radio {
   width: 14px;
   height: 14px;
   border: 1px solid rgba(176, 112, 29, 0.58);
@@ -236,52 +243,149 @@
   white-space: nowrap;
 }
 
-.cardapio-page__features {
+/* ESCOLHA DE BORDA */
+
+.cardapio-page__crust-section {
   margin-top: 12px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  padding: 16px 18px;
   border: 1px solid rgba(176, 112, 29, 0.18);
   border-radius: 7px;
-  overflow: hidden;
-}
-
-.cardapio-page__feature {
-  min-height: 64px;
-  padding: 12px 24px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  border-right: 1px solid rgba(176, 112, 29, 0.2);
   background: rgba(255, 255, 255, 0.58);
 }
 
-.cardapio-page__feature:last-child {
-  border-right: 0;
+.cardapio-page__crust-header {
+  margin-bottom: 14px;
+  text-align: center;
 }
 
-.cardapio-page__feature-icon-img {
-  width: 34px;
-  height: 34px;
-  object-fit: contain;
-  flex-shrink: 0;
+.cardapio-page__crust-header h2 {
+  margin: 0;
+  color: #a96a18;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.98rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-.cardapio-page__feature h3 {
-  margin: 0 0 2px;
-  color: #9a6118;
+.cardapio-page__crust-header p {
+  margin: 5px 0 0;
+  color: #40372f;
   font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.cardapio-page__crust-type-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.cardapio-page__crust-type {
+  min-height: 68px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid rgba(176, 112, 29, 0.24);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.66);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.cardapio-page__crust-type:hover {
+  transform: translateY(-1px);
+  border-color: rgba(176, 112, 29, 0.55);
+  background: #fff7ea;
+}
+
+.cardapio-page__crust-type--active {
+  border-color: #b0701d;
+  background: #ffffff;
+  box-shadow:
+    0 10px 24px rgba(111, 70, 18, 0.08),
+    inset 0 0 0 1px rgba(176, 112, 29, 0.22);
+}
+
+.cardapio-page__crust-type--active .cardapio-page__crust-radio,
+.cardapio-page__crust-option--active .cardapio-page__crust-radio {
+  border-color: #b0701d;
+  background: #b0701d;
+  box-shadow: inset 0 0 0 3px #ffffff;
+}
+
+.cardapio-page__crust-type-content,
+.cardapio-page__crust-option-content {
+  display: grid;
+  gap: 3px;
+}
+
+.cardapio-page__crust-type strong,
+.cardapio-page__crust-option strong {
+  color: #9a6118;
+  font-size: 0.78rem;
   font-weight: 900;
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
-.cardapio-page__feature p {
-  margin: 0;
+.cardapio-page__crust-type small,
+.cardapio-page__crust-option small {
   color: #40372f;
   font-size: 0.68rem;
   font-weight: 700;
   line-height: 1.35;
 }
+
+.cardapio-page__crust-options {
+  margin-top: 10px;
+  display: grid;
+  gap: 8px;
+}
+
+.cardapio-page__crust-option {
+  min-height: 58px;
+  padding: 10px 14px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid rgba(176, 112, 29, 0.18);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.66);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.cardapio-page__crust-option:hover {
+  transform: translateY(-1px);
+  border-color: rgba(176, 112, 29, 0.55);
+  background: #fff7ea;
+}
+
+.cardapio-page__crust-option--active {
+  border-color: #b0701d;
+  background: #ffffff;
+}
+
+.cardapio-page__crust-price {
+  color: #b0701d;
+  font-size: 0.78rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+/* COMO FUNCIONA */
 
 .cardapio-page__steps {
   margin-top: 14px;
@@ -344,6 +448,8 @@
   font-size: 1.4rem;
   font-weight: 900;
 }
+
+/* RODAPÉ */
 
 .cardapio-page__footer {
   margin-top: 12px;
@@ -423,10 +529,12 @@
   object-fit: contain;
 }
 
+/* RESPONSIVO */
+
 @media (max-width: 1080px) {
   .cardapio-page__sizes,
   .cardapio-page__menu-grid,
-  .cardapio-page__features {
+  .cardapio-page__crust-type-grid {
     grid-template-columns: 1fr;
   }
 
@@ -472,12 +580,16 @@
     padding-bottom: 8px;
   }
 
-  .cardapio-page__feature {
-    border-right: 0;
-    border-bottom: 1px solid rgba(176, 112, 29, 0.2);
+  .cardapio-page__crust-section {
+    padding: 14px;
   }
 
-  .cardapio-page__feature:last-child {
-    border-bottom: 0;
+  .cardapio-page__crust-option {
+    grid-template-columns: auto 1fr;
+  }
+
+  .cardapio-page__crust-price {
+    grid-column: 2;
+    justify-self: start;
   }
 }

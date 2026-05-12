@@ -1,114 +1,190 @@
+import { useState } from "react";
 import { Link } from "react-router";
 import "../styles/pages/CarrinhoPage.css";
 
 import refrigeranteIcon from "../assets/Icones/Refrigerante.png";
-import bordaIcon from "../assets/Icones/borda.png";
+import brindeRefriIcon from "../assets/Icones/brinde_refri.png";
+import coroaIcon from "../assets/Icones/Coroa_dourada.png";
 import pedidoIcon from "../assets/Icones/Pedido.png";
 import bolsaIcon from "../assets/Icones/Bolsa.png";
 import confirmarIcon from "../assets/Icones/Confirmar.png";
 import cadeadoIcon from "../assets/Icones/Cadeado.png";
-import carrinhoIcon from "../assets/Icones/carrinho.png";
-import coroaIcon from "../assets/Icones/Coroa_dourada.png";
 
-type DrinkOption = {
+type BeverageItem = {
   id: string;
   name: string;
-  price?: string;
+  price: number;
 };
 
-type BorderOption = {
+type BeverageCategory = {
   id: string;
-  name: string;
+  title: string;
   description: string;
+  icon: string;
+  items: BeverageItem[];
 };
 
-const drinks: DrinkOption[] = [
+type Quantities = Record<string, number>;
+
+const beverageCategories: BeverageCategory[] = [
   {
-    id: "coca-350",
-    name: "Coca-Cola 350ml",
-    price: "R$ 6,90",
+    id: "refrigerantes",
+    title: "Refrigerantes",
+    description: "Clássicos para acompanhar sua pizza.",
+    icon: refrigeranteIcon,
+    items: [
+      { id: "coca-350", name: "Coca-Cola 350ml", price: 6.9 },
+      { id: "coca-zero-350", name: "Coca-Cola Zero 350ml", price: 6.9 },
+      { id: "coca-1l", name: "Coca-Cola 1L", price: 12.9 },
+      { id: "guarana-350", name: "Guaraná Antarctica 350ml", price: 6.9 },
+      { id: "guarana-1l", name: "Guaraná Antarctica 1L", price: 12.9 },
+      { id: "fanta-350", name: "Fanta Laranja 350ml", price: 6.9 },
+      { id: "sprite-350", name: "Sprite 350ml", price: 6.9 },
+    ],
   },
   {
-    id: "coca-1l",
-    name: "Coca-Cola 1L",
-    price: "R$ 12,90",
+    id: "aguas",
+    title: "Águas",
+    description: "Leves, simples e refrescantes.",
+    icon: refrigeranteIcon,
+    items: [
+      { id: "agua-sem-gas", name: "Água mineral sem gás 500ml", price: 4.9 },
+      { id: "agua-com-gas", name: "Água mineral com gás 500ml", price: 5.5 },
+      { id: "agua-tonica", name: "Água tônica 350ml", price: 6.9 },
+    ],
   },
   {
-    id: "coca-zero-350",
-    name: "Coca-Cola Zero 350ml",
-    price: "R$ 6,90",
+    id: "sucos-naturais",
+    title: "Sucos naturais",
+    description: "Frutas frescas e preparo artesanal.",
+    icon: coroaIcon,
+    items: [
+      { id: "suco-laranja", name: "Suco natural de laranja 500ml", price: 11.9 },
+      { id: "suco-limao", name: "Suco natural de limão 500ml", price: 10.9 },
+      { id: "suco-abacaxi", name: "Suco natural de abacaxi 500ml", price: 12.9 },
+      { id: "suco-maracuja", name: "Suco natural de maracujá 500ml", price: 12.9 },
+      { id: "suco-morango", name: "Suco natural de morango 500ml", price: 13.9 },
+    ],
   },
   {
-    id: "coca-zero-1l",
-    name: "Coca-Cola Zero 1L",
-    price: "R$ 12,90",
+    id: "sucos-especiais",
+    title: "Sucos especiais",
+    description: "Combinações exclusivas da casa.",
+    icon: coroaIcon,
+    items: [
+      { id: "mazzero-citrus", name: "Suco Mazzero Citrus", price: 15.9 },
+      { id: "suco-rosso", name: "Suco Rosso", price: 16.9 },
+      { id: "suco-tropicale", name: "Suco Tropicale", price: 15.9 },
+      { id: "limonada-siciliana", name: "Limonada Siciliana", price: 14.9 },
+    ],
   },
   {
-    id: "guarana-350",
-    name: "Guaraná Antarctica 350ml",
-    price: "R$ 6,90",
+    id: "cervejas",
+    title: "Cervejas",
+    description: "Long necks e opções clássicas.",
+    icon: brindeRefriIcon,
+    items: [
+      { id: "heineken", name: "Heineken Long Neck 330ml", price: 13.9 },
+      { id: "heineken-zero", name: "Heineken Zero Long Neck 330ml", price: 13.9 },
+      { id: "stella", name: "Stella Artois Long Neck 330ml", price: 12.9 },
+      { id: "corona", name: "Corona Extra Long Neck 330ml", price: 14.9 },
+      { id: "spaten", name: "Spaten Long Neck 355ml", price: 12.9 },
+    ],
   },
   {
-    id: "guarana-1l",
-    name: "Guaraná Antarctica 1L",
-    price: "R$ 12,90",
+    id: "vinhos",
+    title: "Vinhos",
+    description: "Para harmonizar com massas e pizzas.",
+    icon: brindeRefriIcon,
+    items: [
+      { id: "vinho-tinto-taca", name: "Vinho tinto seco - taça", price: 19.9 },
+      { id: "vinho-branco-taca", name: "Vinho branco seco - taça", price: 19.9 },
+      { id: "vinho-rose-taca", name: "Vinho rosé - taça", price: 21.9 },
+      { id: "espumante-brut", name: "Espumante brut - taça", price: 24.9 },
+    ],
   },
   {
-    id: "fanta-350",
-    name: "Fanta Laranja 350ml",
-    price: "R$ 6,90",
+    id: "drinks",
+    title: "Drinks",
+    description: "Coquetéis modernos para uma experiência premium.",
+    icon: brindeRefriIcon,
+    items: [
+      { id: "aperol", name: "Aperol Spritz", price: 29.9 },
+      { id: "gin-tonica", name: "Gin Tônica", price: 31.9 },
+      { id: "moscow-mule", name: "Moscow Mule", price: 32.9 },
+      { id: "negroni", name: "Negroni", price: 34.9 },
+      { id: "caipirinha-limao", name: "Caipirinha de limão", price: 24.9 },
+    ],
   },
   {
-    id: "fanta-1l",
-    name: "Fanta Laranja 1L",
-    price: "R$ 12,90",
-  },
-  {
-    id: "sprite-350",
-    name: "Sprite 350ml",
-    price: "R$ 6,90",
-  },
-  {
-    id: "sprite-1l",
-    name: "Sprite 1L",
-    price: "R$ 12,90",
-  },
-  {
-    id: "sem-refrigerante",
-    name: "Não quero refrigerante",
+    id: "sem-alcool-premium",
+    title: "Sem álcool premium",
+    description: "Bebidas especiais sem álcool.",
+    icon: coroaIcon,
+    items: [
+      { id: "mojito-zero", name: "Mojito sem álcool", price: 18.9 },
+      { id: "spritz-zero", name: "Spritz sem álcool", price: 18.9 },
+      { id: "tonica-italiana", name: "Tônica Italiana", price: 17.9 },
+      { id: "limonada-mazzero", name: "Limonada Mazzero", price: 16.9 },
+    ],
   },
 ];
 
-const borders: BorderOption[] = [
-  {
-    id: "sem-borda",
-    name: "Sem borda tradicional",
-    description: "A borda tradicional da nossa pizza.",
-  },
-  {
-    id: "catupiry",
-    name: "Borda Catupiry",
-    description: "Recheada com catupiry cremoso.",
-  },
-  {
-    id: "cheddar",
-    name: "Borda Cheddar",
-    description: "Recheada com cheddar cremoso.",
-  },
-  {
-    id: "chocolate",
-    name: "Borda Chocolate",
-    description: "Recheada com chocolate ao leite.",
-  },
-  {
-    id: "leite-ninho",
-    name: "Borda doce com Leite Ninho",
-    description: "Recheada com leite ninho e leite condensado.",
-  },
- 
-];
+function formatCurrency(value: number) {
+  return value.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+}
 
 function CarrinhoPage() {
+  const [openCategoryId, setOpenCategoryId] = useState("refrigerantes");
+  const [quantities, setQuantities] = useState<Quantities>({});
+
+  function toggleCategory(categoryId: string) {
+    setOpenCategoryId((currentCategoryId) =>
+      currentCategoryId === categoryId ? "" : categoryId,
+    );
+  }
+
+  function getItemQuantity(itemId: string) {
+    return quantities[itemId] ?? 0;
+  }
+
+  function increaseQuantity(itemId: string) {
+    setQuantities((currentQuantities) => ({
+      ...currentQuantities,
+      [itemId]: getItemQuantity(itemId) + 1,
+    }));
+  }
+
+  function decreaseQuantity(itemId: string) {
+    setQuantities((currentQuantities) => {
+      const currentValue = currentQuantities[itemId] ?? 0;
+      const nextValue = Math.max(currentValue - 1, 0);
+
+      return {
+        ...currentQuantities,
+        [itemId]: nextValue,
+      };
+    });
+  }
+
+  const selectedItems = beverageCategories.flatMap((category) =>
+    category.items
+      .filter((item) => getItemQuantity(item.id) > 0)
+      .map((item) => ({
+        ...item,
+        quantity: getItemQuantity(item.id),
+        total: item.price * getItemQuantity(item.id),
+      })),
+  );
+
+  const totalSelectedItems = selectedItems.reduce(
+    (total, item) => total + item.quantity,
+    0,
+  );
+
   return (
     <section className="carrinho-page" aria-labelledby="carrinho-title">
       <div className="carrinho-page__container">
@@ -128,65 +204,73 @@ function CarrinhoPage() {
           <div className="carrinho-page__title-line" aria-hidden="true" />
         </header>
 
-        <div className="carrinho-page__options-grid">
-          <section className="carrinho-page__panel" aria-labelledby="drinks-title">
-            <PanelHeader
-              icon={refrigeranteIcon}
-              title="Refrigerantes"
-              titleId="drinks-title"
-            />
+        <div className="carrinho-page__beverage-panel">
+          {beverageCategories.map((category) => {
+            const isOpen = openCategoryId === category.id;
 
-            <div className="carrinho-page__drink-list">
-              {drinks.map((drink) => (
-                <label key={drink.id} className="carrinho-page__drink-option">
-                  <input
-                    className="carrinho-page__radio-input"
-                    type="radio"
-                    name="drink"
-                    value={drink.id}
-                  />
+            return (
+              <section key={category.id} className="carrinho-page__accordion">
+                <button
+                  type="button"
+                  className={`carrinho-page__accordion-button ${
+                    isOpen ? "carrinho-page__accordion-button--open" : ""
+                  }`}
+                  aria-expanded={isOpen}
+                  onClick={() => toggleCategory(category.id)}
+                >
+                  <span className="carrinho-page__accordion-title">
+                    <img src={category.icon} alt="" aria-hidden="true" />
 
-                  <span className="carrinho-page__fake-radio" aria-hidden="true" />
-
-                  <span className="carrinho-page__option-name">{drink.name}</span>
-
-                  {drink.price && (
-                    <strong className="carrinho-page__option-price">
-                      {drink.price}
-                    </strong>
-                  )}
-                </label>
-              ))}
-            </div>
-          </section>
-
-          <section className="carrinho-page__panel" aria-labelledby="border-title">
-            <PanelHeader
-              icon={bordaIcon}
-              title="Borda da pizza"
-              titleId="border-title"
-            />
-
-            <div className="carrinho-page__border-list">
-              {borders.map((border) => (
-                <label key={border.id} className="carrinho-page__border-option">
-                  <input
-                    className="carrinho-page__radio-input"
-                    type="radio"
-                    name="pizza-border"
-                    value={border.id}
-                  />
-
-                  <span className="carrinho-page__fake-radio" aria-hidden="true" />
-
-                  <span className="carrinho-page__border-content">
-                    <strong>{border.name}</strong>
-                    <small>{border.description}</small>
+                    <span>
+                      <strong>{category.title}</strong>
+                      <small>{category.description}</small>
+                    </span>
                   </span>
-                </label>
-              ))}
-            </div>
-          </section>
+
+                  <span className="carrinho-page__accordion-arrow" aria-hidden="true">
+                    {isOpen ? "−" : "+"}
+                  </span>
+                </button>
+
+                {isOpen && (
+                  <div className="carrinho-page__accordion-content">
+                    {category.items.map((item) => {
+                      const quantity = getItemQuantity(item.id);
+
+                      return (
+                        <article key={item.id} className="carrinho-page__beverage-item">
+                          <div>
+                            <strong>{item.name}</strong>
+                            <span>{formatCurrency(item.price)}</span>
+                          </div>
+
+                          <div className="carrinho-page__quantity-control">
+                            <button
+                              type="button"
+                              aria-label={`Remover ${item.name}`}
+                              onClick={() => decreaseQuantity(item.id)}
+                            >
+                              −
+                            </button>
+
+                            <span>{quantity}</span>
+
+                            <button
+                              type="button"
+                              aria-label={`Adicionar ${item.name}`}
+                              onClick={() => increaseQuantity(item.id)}
+                            >
+                              +
+                            </button>
+                          </div>
+                        </article>
+                      );
+                    })}
+                  </div>
+                )}
+              </section>
+            );
+          })}
         </div>
 
         <section className="carrinho-page__orders-card" aria-labelledby="orders-title">
@@ -215,11 +299,11 @@ function CarrinhoPage() {
             </div>
 
             <p className="carrinho-page__orders-label">
-              Pedidos enviados até agora
+              Bebidas e complementos selecionados
             </p>
 
             <strong className="carrinho-page__orders-count">
-              0 <span>pedido(s)</span>
+              {totalSelectedItems} <span>item(ns)</span>
             </strong>
           </div>
 
@@ -238,31 +322,8 @@ function CarrinhoPage() {
           <img src={cadeadoIcon} alt="" aria-hidden="true" />
           Seus dados e pedido estão seguros conosco.
         </p>
-
       </div>
     </section>
-  );
-}
-
-type PanelHeaderProps = {
-  icon: string;
-  title: string;
-  titleId: string;
-};
-
-function PanelHeader({ icon, title, titleId }: PanelHeaderProps) {
-  return (
-    <header className="carrinho-page__panel-header">
-      <img src={icon} alt="" aria-hidden="true" />
-
-      <h2 id={titleId}>{title}</h2>
-
-      <div className="carrinho-page__panel-decoration" aria-hidden="true">
-        <span />
-        <strong>✦</strong>
-        <span />
-      </div>
-    </header>
   );
 }
 
