@@ -1,4 +1,3 @@
-import { Link } from "react-router";
 import "../styles/pages/HomePage.css";
 
 import pizzaIcon from "../assets/Icones/pizza_home.png";

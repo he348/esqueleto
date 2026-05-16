@@ -168,7 +168,7 @@ function PagamentoPage() {
             ‹ Voltar
           </Link>
 
-          <Link to="/pedido-sucesso" className="pagamento-page__confirm-button">
+          <Link to="/pedido/sucesso" className="pagamento-page__confirm-button">
             <img src={lockIcon} alt="" aria-hidden="true" />
             Já paguei, confirmar pedido
           </Link>
